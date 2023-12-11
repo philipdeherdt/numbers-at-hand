@@ -146,9 +146,6 @@ function loadStorageCacheUI() {
       updatePunctuation(result.settingPunctuation);
       updateDarkMode(result.settingDarkMode);
       updateRegion(result.settingRegion);
-
-      _gaq.push(['_setCustomVar', 1, 'DarkMode', result.settingDarkMode ? "dark" : "light", 1]); //TODO: This does not work ?? - debug needed
-      _gaq.push(['_trackEvent', 'Storage cache load', 'DarkMode ' + (result.settingDarkMode ? "on" : "off")]);
     });
   } catch (e) {}
 }
@@ -178,7 +175,6 @@ function addGenerator(menuId, messageId, func) {
   lmnt.innerText = geti18n(messageId);
   lmnt.addEventListener('click', func, false);
   lmnt.addEventListener('mouseout', function() { resetStatus(); }, false);
-  lmnt.addEventListener('click', trackButtonClick);
 
   menu.appendChild(lmnt);
   return lmnt;
@@ -214,33 +210,6 @@ function initUiValue(elementId, messageId) {
     ; //[Uncaught TypeError: Cannot read property 'getMessage' of undefined] if webpage loaded directly
   }
 }
-
-// **************************** Google analytics ******************************
-
-function trackButtonClick(e) {
-  if (e.target.classList.contains("generator"))
-    logGeneratorUsage(e.target.id, e.target.innerText, "popup");
-  else if (e.target.id == "btn-settings") {
-    _gaq.push(['_trackEvent', 'Settings', (isVisible("div-settings") ? "Open" : "Close") + " settings menu"]);
-  } else if (e.target.id == "chk-settingDarkMode") {
-    _gaq.push(['_trackEvent', 'Settings', (e.target.checked ? "Enable" : "Disable") + " dark mode"]);
-  } else if (e.target.id == "chk-settingPunctuation") {
-    _gaq.push(['_trackEvent', 'Settings', (e.target.checked ? "Enable" : "Disable") + " punctuation", "via settings menu"]);
-  } else if (e.target.id == "btn-settingPunctuation") {
-    _gaq.push(['_trackEvent', 'Settings', (getPunctuation() ? "Enable" : "Disable") + " punctuation", "via onscreen button"]);
-  } else if (e.target.id == "btn-settingRegion") {
-    _gaq.push(['_trackEvent', 'Settings', "Switch region to " + getRegion(), "via onscreen button"]);
-  } else {
-    _gaq.push(['_trackEvent', 'Unclassified', e.target.id, e.target.innerText]);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var buttons = document.querySelectorAll('a,input,li');
-  for (var i = 0; i < buttons.length; i++) {
-    buttons[i].addEventListener('click', trackButtonClick);
-  }
-});
 
 // **************************** Helper functions ******************************
 

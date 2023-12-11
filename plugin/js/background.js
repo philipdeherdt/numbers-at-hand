@@ -1,16 +1,12 @@
 function onClickHandler(info, tab) {
   if (info.menuItemId == "modeInject") {
     setContextActionInjection();
-    _gaq.push(['_trackEvent', 'Settings', "Set ContextAction Injection", "via context menu"]);
   } else if (info.menuItemId == "modeInjectClipboard") {
     setContextActionInjectionAndClipboard();
-    _gaq.push(['_trackEvent', 'Settings', "Set ContextAction Injection + Clipboard", "via context menu"]);
   } else if (info.menuItemId == "modeClipboard") {
     setContextActionClipboard();
-    _gaq.push(['_trackEvent', 'Settings', "Set ContextAction Clipboard", "via context menu"]);
   } else if (info.menuItemId == "settingPunctuation") {
     togglePunctuationBackend();
-    _gaq.push(['_trackEvent', 'Settings', (getPunctuation() ? "Enable" : "Disable") + " punctuation", "via context menu"]);
   } else {
     var g = generators.filter(x => x[1] == info.menuItemId)[0][2];
     var value = g();
@@ -25,8 +21,6 @@ function onClickHandler(info, tab) {
     }
     if (getContextActionClipboard())
       copy(value);
-
-    logGeneratorUsage(info.menuItemId, chrome.i18n.getMessage(info.menuItemId), "context");
   }
 };
 
