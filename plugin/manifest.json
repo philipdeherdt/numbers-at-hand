@@ -16,8 +16,7 @@
     "default_popup": "popup.html",
     "default_title": "__MSG_extensionhovertext__"
   },
-  "permissions": ["storage", "contextMenus", "activeTab","scripting", "clipboardWrite"],
-  "host_permissions": ["<all_urls>"],
+  "permissions": ["storage", "contextMenus", "activeTab","clipboardWrite"],
   "background": {
     "service_worker": "js/service_worker.js"
   },
