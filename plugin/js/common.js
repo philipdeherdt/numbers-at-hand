@@ -3,13 +3,13 @@ var storageCache = {};
 loadStorageCacheBackend();
 
 try {
-  chrome.storage.onChanged.addListener(function(changes, namespace) {
+  chrome.storage.onChanged.addListener(function (changes, namespace) {
     for (var key in changes) {
       storageCache[key] = changes[key].newValue;
-      try { applyContextMenuButtons(); } catch (e) {}
+      try { applyContextMenuButtons(); } catch (e) { }
     }
   });
-} catch (e) {}
+} catch (e) { }
 
 var regions = [
   ["BE", "🇧🇪"],
@@ -60,7 +60,7 @@ function generateRandomBsn() //NL Burgerservicenummer
 function generateRandomV4Uuid() { // Public Domain/MIT
   var d = new Date().getTime(); //Timestamp
   var d2 = (performance && performance.now && (performance.now() * 1000)) || 0; //Time in microseconds since page-load or 0 if unsupported
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = Math.random() * 16; //random number between 0 and 16
     if (d > 0) { //Use timestamp until depleted
       r = (d + r) % 16 | 0;
@@ -129,8 +129,8 @@ function generateRandomIban() {
       ('000' + bankcode).slice(-3),
       ('0000000' + accountNbr).slice(-7),
       ('00' + nationalCheck).slice(-2),
-      11 /*B*/ ,
-      14 /*E*/ ,
+      11 /*B*/,
+      14 /*E*/,
       "00"), 97);
 
   return "oocc bbba aaaa aann".punctuate()
@@ -349,7 +349,7 @@ function modulo(divident, divisor) {
 }
 
 if (String.prototype.fill === undefined) {
-  String.prototype.fill = function(c, val, pad = "0") {
+  String.prototype.fill = function (c, val, pad = "0") {
     var re = new RegExp(c, "g");
     var length = (this.match(re) || []).length;
     var i = 0,
@@ -359,7 +359,7 @@ if (String.prototype.fill === undefined) {
 }
 
 if (String.prototype.punctuate === undefined) {
-  String.prototype.punctuate = function() {
+  String.prototype.punctuate = function () {
     return getPunctuation() ?
       this :
       this.replace(/[^a-zA-Z]/g, '');
@@ -374,7 +374,7 @@ function loadStorageCacheBackend() {
       "settingContextActionClipboard",
       "settingContextActionInjection",
       "settingRegion"
-    ], function(
+    ], function (
       result) {
       if (typeof result.settingContextActionInjection == 'undefined')
         result.settingContextActionInjection = true;
@@ -382,7 +382,7 @@ function loadStorageCacheBackend() {
         result.settingRegion = "BE";
 
       storageCache = result;
-      try { applyContextMenuButtons(); } catch (e) {}
+      try { applyContextMenuButtons(); } catch (e) { }
     });
-  } catch (e) {}
+  } catch (e) { }
 }
