@@ -38,6 +38,7 @@ Install the extension from the [Chrome web store](https://chrome.google.com/webs
 
 ## Similar tools
 
-If you're looking for generators for other kinds of randomized test-data, you might like these:
+If this extension doesn't completely fulfill your needs, you might like these better:
 * [Bug Magnet](https://bugmagnet.org/)
 * [Mobilefish Test data generator](https://www.mobilefish.com/services/random_test_data_generator/random_test_data_generator.php)
+* [b.ignited Test data generator](https://testdatagenerator.bignited.be/)
